@@ -2,8 +2,9 @@
 init python:
 
     animals = [
-        ("submenu_animales", _("Salir a caminar.")),
-        ("submenu_telescopio", _("Mirar por el telescopio.")),
+        ("animal_murc", _("Ir al Parque.")),
+        ("animal_gato", _("Ir al Centro.")),
+        ("animal_puma", _("Ir al Zoo.")),
         ]
 
 screen animals:
@@ -35,6 +36,13 @@ screen animals:
 
 
 label submenu_animales:
+    
+#la llama es compulsiva ahora    
+label animal_llama:
+    #historia con la llama
+    
+    
+label after_llama:
 
     $ animals_adjustment = ui.adjustment()
 
@@ -45,5 +53,4 @@ label submenu_animales:
 
     call expression _return
 
-    return
     return
