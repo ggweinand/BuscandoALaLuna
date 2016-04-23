@@ -1,39 +1,74 @@
 # Menu para los animales
+init python:
+
+    planetas = [
+        ("planeta_mercurio", _("Observar Mercurio.")),
+        ("planeta_venus", _("Observar Venus.")),
+        ("planeta_marte", _("Observar Marte.")),
+        ("planeta_jupiter", _("Observar Júpiter.")),
+        ]
+
+screen planetas:
+
+    side "c r":
+        area (250, 40, 548, 400)
+
+        viewport:
+            yadjustment adj
+            mousewheel True
+
+            vbox:
+                for label, name in planetas:
+                    button:
+                        action Return(label)
+                        left_padding 20
+                        xfill True
+
+                        hbox:
+                            text name style "button_text" min_width 420
+                null height 20
+
+
+        bar adjustment adj style "vscrollbar"
+
 
 
 label submenu_telescopio:
-
-    i "hOi I'm tEmmi3"
-
-    i "Features like saving, loading, changing preferences, and so on."
-
-    i "One of the nice things about Ren'Py is that the engine provides many of these features for you. You can spend your time creating your game, and let us provide these things."
-
-    i "While you're in the game, you can access the game menu by right clicking or hitting the escape key."
-
-    show logo at topright
     
-    i "When you first enter the game menu, you'll see the save screen. Clicking on a numbered slot will save the game."
+    #inicializar
+    if not persistent.telescopio:
+        $persistent.telescopio = False
+    
+    if not persistent.venus:
+        $persistent.venus = False
+    
+    if not persistent.marte:
+        $persistent.marte = False
+        
+    if not persistent.mercurio:
+        $persistent.mercurio = False
+        
+    if not persistent.jupiter:
+        $persistent.jupiter = False
+        
+    #si ya lo hizo vuelve al menu principal
+    if persistent.telescopio_done:
+        jump telescopio_end
+    
 
-    menu:
+    $ planetas_adjustment = ui.adjustment()
 
-        i "Would you like to hear more about rollback?"
+    call screen planetas(adj=planetas_adjustment)
 
-        "Yes.":
+    call expression _return
+    
+    
+    $ persistent.telescopio_done = persistent.mercurio and persistent.venus and persistent.marte and persistent.jupiter
+    
 
-            jump asd
-
-        "No.":
-
-            jump asd
-
-
-label asd:
-
-    i "You can invoke a rollback by scrolling the mouse wheel up, or by pushing the page up key. That'll bring you back to the previous screen."
-
-    i "While at a previous screen, you can roll forward by scrolling the mouse wheel down, or pushing the page down key."
-
-    i "Rolling forward through a menu will make the same choice you did last time. But unlike other engines, Ren'Py's rollback system allows you to make a different choice."
-
-    return
+    jump submenu_telescopio
+    
+label telescopio_end:
+    $persistent.telescopio_done = True
+    i "No creo que haya más información aquí..."
+    jump menu_pr

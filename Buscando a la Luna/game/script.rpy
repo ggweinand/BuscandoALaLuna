@@ -9,14 +9,16 @@
 # Declare characters used by this game.
 # - Declara los personajes usados en el juego como en el
 #   ejemplo.
-define i = Character('Itati', color="#c8ffc8")
+define i = Character('Itatí', color="#c8ffc8")
 
 
 init python:
 
     tutorials = [
-        ("submenu_animales", _("Salir a caminar.")),
+        ("submenu_animales", _("Emprender caminata.")),
         ("submenu_telescopio", _("Mirar por el telescopio.")),
+        ("submenu_galeria", _("Galería de Imágenes.")),
+        ("submenu_datos", _("Datos sobre la Luna.")),
         ]
 
 screen tutorials:
@@ -39,7 +41,7 @@ screen tutorials:
                             text name style "button_text" min_width 420
                 null height 20
 
-                textbutton _("That's enough for now."):
+                textbutton _("Reset data."):
                     xfill True
                     action Return(False)
 
@@ -50,43 +52,44 @@ screen tutorials:
 # The game starts here.
 # - El juego comienza aquí.
 label start:
-
-    #end start
-    scene bg office
-    show logo at truecenter
-    with dissolve
-
-    # Start the background music playing.
     
-
-    window show
-
-    i "Yee"
-
+    
+    #intro
+    centered "Una noche como cualquier otra, una pequeña niña llamada Itatí, descubrió que en esa noche estrellada, no había rastros de la Luna."
+    centered "Al ver que esto no era común, se preocupó, y tomó la decisión de investigar sobre este misterio."
+    centered "Sus padres no supieron aclarar sus dudas, así que decidió seguir por su cuenta."
+    
     
     $ tutorials_adjustment = ui.adjustment()
-    $ tutorials_first_time = True
+    $ menu_first_time = True
 
+label menu_pr:
     
-
-label tutorials:
     
     
     show logo at left
     with move
 
-    if tutorials_first_time:
-        $ i(_("What would you like to see?"), interact=False)
+    if menu_first_time:
+        $ i(_("¿Dónde debería comenzar a buscar?"), interact=False)
     else:
-        $ i(_("Is there anything else you'd like to see?"), interact=False)
+        $ i(_("Debería seguir buscando..."), interact=False)
 
     $ tutorials_first_time = False
 
     call screen tutorials(adj=tutorials_adjustment)
     
     if _return is False:
-        jump end
+        jump reset
 
     call expression _return
+    
 
-    return
+    jump menu_pr
+
+
+
+
+label reset:
+    $ persistent.telescopio_done = persistent.mercurio = persistent.marte = persistent.venus = persistent.jupiter = False
+    jump menu_pr

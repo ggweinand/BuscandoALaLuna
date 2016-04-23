@@ -27,10 +27,6 @@ screen animals:
                             text name style "button_text" min_width 420
                 null height 20
 
-                textbutton _("That's enough for now."):
-                    xfill True
-                    action Return(False)
-
         bar adjustment adj style "vscrollbar"
 
 
@@ -43,14 +39,33 @@ label animal_llama:
     
     
 label after_llama:
+    
+    if not persistent.animales_done:
+        $persistent.animales_done = False
+    
+    if not persistent.murcielago:
+        $persistent.murcielago = False
+    
+    if not persistent.puma:
+        $persistent.puma = False
+    
+    if not persistent.gato:
+        $persistent.gato = False
 
     $ animals_adjustment = ui.adjustment()
 
     call screen animals(adj=animals_adjustment)
     
-    if _return is False:
-        jump end
-
     call expression _return
+    
+    $ persistent.animales_done = persistent.puma and persistent.gato and persistent.marte and persistent.murcielago
+    
+    if persistent.animales_done:
+        jump animales_end
+    
+    else:
+        jump after_llama
 
+label animales_end:
+    
     return
