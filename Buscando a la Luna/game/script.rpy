@@ -53,6 +53,8 @@ screen tutorials:
 # - El juego comienza aquí.
 label start:
     
+    if not persistent.abuelo_disable:
+        $ persistent.abuelo_disable = False
     
     #intro
     centered "Una noche como cualquier otra, una pequeña niña llamada Itatí, descubrió que en esa noche estrellada, no había rastros de la Luna."
@@ -66,10 +68,12 @@ label start:
 label menu_pr:
     
     
+    if ((not persistent.abuelo_disable) and persistent.telescopio_done and persistent.animales_done):
+        call abuelo
     
-    show logo at left
-    with move
-
+    #scene bg habitacion
+    #show mc at left
+    
     if menu_first_time:
         $ i(_("¿Dónde debería comenzar a buscar?"), interact=False)
     else:
@@ -84,9 +88,7 @@ label menu_pr:
 
     call expression _return
     
-
     jump menu_pr
-
 
 
 

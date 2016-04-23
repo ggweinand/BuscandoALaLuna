@@ -35,9 +35,14 @@ screen planetas:
 
 label submenu_telescopio:
     
+    #escena
+    #scene bg telescopio
+    #show mc at left
+    #with dissolve
+    
     #inicializar
-    if not persistent.telescopio:
-        $persistent.telescopio = False
+    if not persistent.telescopio_done:
+        $persistent.telescopio_done = False
     
     if not persistent.venus:
         $persistent.venus = False
