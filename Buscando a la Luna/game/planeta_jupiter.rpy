@@ -1,7 +1,7 @@
 # Declare characters used by this game.
 # - Declara los personajes usados en el juego como en el
 #   ejemplo.
-define jup = Character('Júpiter', color="#c8ffc8")
+define jup = Character('Júpiter', color="#d8ca9d")
 
 
 label planeta_jupiter:

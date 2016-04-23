@@ -1,7 +1,7 @@
 # Declare characters used by this game.
 # - Declara los personajes usados en el juego como en el
 #   ejemplo.
-define mer = Character('Mercurio', color="#c8ffc8")
+define mer = Character('Mercurio', color="#f0bc11")
 
 
 label planeta_mercurio:

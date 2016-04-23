@@ -1,7 +1,7 @@
 # Declare characters used by this game.
 # - Declara los personajes usados en el juego como en el
 #   ejemplo.
-define ven = Character('Venus', color="#c8ffc8")
+define ven = Character('Venus', color="#a7661b")
 
 
 label planeta_venus:
