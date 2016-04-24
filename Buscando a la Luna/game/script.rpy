@@ -88,7 +88,7 @@ label menu_pr:
         with move
         $ i(_("¡Ahora podés ver datos sobre la Luna!"), interact=False)
     else:
-        if persistent.menu_first_time_disable:
+        if not persistent.menu_first_time_disable:
             i "¡Qué divertido va a ser esto! Puedo elegir distintos caminos para encontrar a la Luna."
             show mc at left
             with move
