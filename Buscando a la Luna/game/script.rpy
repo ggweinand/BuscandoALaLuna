@@ -69,15 +69,14 @@ label start:
     
     
     $ tutorials_adjustment = ui.adjustment()
-    if not persistent.menu_first_time_disable:
-        $ persistent.menu_first_time_disable = False
+    $ persistent.menu_first_time_disable = False
 
 label menu_pr:
     
     play music "mprincipal.mp3"
     
     if ((not persistent.abuelo_disable) and persistent.telescopio_done and persistent.animales_done):
-        call abuelo
+        call abuelo from _call_abuelo
     
     scene bg habitacion
     show mc at center
@@ -93,7 +92,7 @@ label menu_pr:
             show mc at left
             with move
             $ i(_("¿Por dónde empiezo a buscar?"), interact=False)
-            $ persistent.menu_first_time_disable = True
+
         else:
             i "Seguro que la respuesta está en otro capítulo..."
             show mc at left
@@ -104,10 +103,12 @@ label menu_pr:
 
     call screen tutorials(adj=tutorials_adjustment)
     
+    $ persistent.menu_first_time_disable = True
+    
     if _return is False:
         jump reset
 
-    call expression _return
+    call expression _return from _call_expression_1
     
     jump menu_pr
 
