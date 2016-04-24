@@ -29,16 +29,16 @@ screen planetas:
                 null height 20
 
 
-        bar adjustment adj style "vscrollbar"
-
 
 
 label submenu_telescopio:
     
+    play music "planets.mp3"
+    
     #escena
-    #scene bg telescopio
-    #show mc at left
-    #with dissolve
+    scene bg habitacion
+    show mc at left
+    with dissolve
     
     #inicializar
     if not persistent.telescopio_done:

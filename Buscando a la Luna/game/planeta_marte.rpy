@@ -8,23 +8,22 @@ label planeta_marte:
 
     #historia con Marte
     
-    #show scene bg space
-    #show mc at left
-    #with dissolve
+    scene bg space
+    show mc at left
+    with dissolve
     
     if persistent.marte:
         jump visited
         
-    i "Inclinando el telescopio, Itatí pudo divisar a Marte. Luego de saludarlo, siguió buscando información de la Luna."
+    centered "Inclinando el telescopio, Itatí pudo ver a Marte. Luego de saludarlo, le preguntó:"
     
-    #show marte at right
-    #with dissolve
+    show marte:
+        xalign 1.0
+        yalign 0.5
+    with dissolve
     
-    i "Marte, ¿podrías ayudarme?"
-    i "Sigo sin poder encontrar a la Luna. ¿Tendrías algún dato que me ayude a ubicarla?"
-    mar "No me digas... aún no ha aparecido, ¿verdad?"
+    i "Marte, ¿podrías ayudarme a encontrar a la Luna? Hace rato que la estoy buscando y no logro verla."
     mar "No te preocupes demasiado, suele hacer esas cosas regularmente. Sobre ella puedo decir que fue formada hace más de 4000 millones de años, pero nada más." 
-    i "No te preocupes, tarde o temprano podré averigüar donde está."
     i "¡Muchas gracias por tu ayuda! ¡Adiós!"
     
     #termina la historia

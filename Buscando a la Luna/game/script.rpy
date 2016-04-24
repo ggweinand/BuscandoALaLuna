@@ -12,12 +12,16 @@
 define i = Character('Itatí', color="#c8ffc8")
 
 
+#IMAGENESSSSS
+image mc = im.FactorScale("Terra.png", 0.18, 0.18)
+image bg habitacion = im.FactorScale("ventana.jpg", 0.5, 0.5)
+
+
 init python:
 
     tutorials = [
-        ("submenu_animales", _("Emprender caminata.")),
+        ("submenu_animales", _("Salir a caminar.")),
         ("submenu_telescopio", _("Mirar por el telescopio.")),
-        ("submenu_galeria", _("Galería de Imágenes.")),
         ("submenu_datos", _("Datos sobre la Luna.")),
         ]
 
@@ -41,45 +45,62 @@ screen tutorials:
                             text name style "button_text" min_width 420
                 null height 20
 
-                textbutton _("Reset data."):
+                textbutton _("Borrar datos guardados."):
                     xfill True
                     action Return(False)
-
-        bar adjustment adj style "vscrollbar"
-
 
 
 # The game starts here.
 # - El juego comienza aquí.
+label main_menu:
 label start:
     
     if not persistent.abuelo_disable:
         $ persistent.abuelo_disable = False
+    scene noche
+    with dissolve
     
     #intro
-    centered "Una noche como cualquier otra, una pequeña niña llamada Itatí, descubrió que en esa noche estrellada, no había rastros de la Luna."
-    centered "Al ver que esto no era común, se preocupó, y tomó la decisión de investigar sobre este misterio."
-    centered "Sus padres no supieron aclarar sus dudas, así que decidió seguir por su cuenta."
+    play music "moonphases.mp3"
+
+    centered "Una noche estrellada como cualquier otra, una pequeña niña llamada Itatí descubrió que no se veía la Luna."
+    centered "Buscó, miró y miró, y al no encontrarla decidió investigar este misterio."
+    centered "En la biblioteca del abuelo encontró un libro sobre la Luna."
     
     
     $ tutorials_adjustment = ui.adjustment()
-    $ menu_first_time = True
+    if not persistent.menu_first_time_disable:
+        $ persistent.menu_first_time_disable = False
 
 label menu_pr:
     
+    play music "mprincipal.mp3"
     
     if ((not persistent.abuelo_disable) and persistent.telescopio_done and persistent.animales_done):
         call abuelo
     
-    #scene bg habitacion
-    #show mc at left
+    scene bg habitacion
+    show mc at center
+    with dissolve
     
-    if menu_first_time:
-        $ i(_("¿Dónde debería comenzar a buscar?"), interact=False)
+    if persistent.abuelo_disable:
+        show mc at left
+        with move
+        $ i(_("¡Ahora podés ver datos sobre la Luna!"), interact=False)
     else:
-        $ i(_("Debería seguir buscando..."), interact=False)
+        if persistent.menu_first_time_disable:
+            i "¡Qué divertido va a ser esto! Puedo elegir distintos caminos para encontrar a la Luna."
+            show mc at left
+            with move
+            $ i(_("¿Por dónde empiezo a buscar?"), interact=False)
+            $ persistent.menu_first_time_disable = True
+        else:
+            i "Seguro que la respuesta está en otro capítulo..."
+            show mc at left
+            with move
+            $ i(_("Debería seguir buscando..."), interact=False)
 
-    $ tutorials_first_time = False
+    
 
     call screen tutorials(adj=tutorials_adjustment)
     
@@ -94,4 +115,7 @@ label menu_pr:
 
 label reset:
     $ persistent.telescopio_done = persistent.mercurio = persistent.marte = persistent.venus = persistent.jupiter = False
+    $ persistent.animales_done = persistent.puma = persistent.murcielago = persistent.gato = persistent.llama_disable = False
+    $ persistent.abuelo_disable = False
+    $ persistent.menu_first_time_disable = True
     jump menu_pr

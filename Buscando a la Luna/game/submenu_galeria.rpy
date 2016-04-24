@@ -37,9 +37,6 @@ screen galerias:
                     action Return(False)
 
 
-        bar adjustment adj style "vscrollbar"
-
-
 
 label submenu_galeria:
     
