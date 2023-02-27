@@ -1,0 +1,5 @@
+tmp
+.vscode
+game/*.rpyc
+game/saves
+log.txt
